@@ -7,12 +7,13 @@ process minimap2_genome {
 
     input:
     tuple val(sampleId), path(fusions)
+    path(refGenome)
 
     output:
     tuple val(sampleId), path("${sampleId}_genome.paf"), emit: paf_genome_ch
 
     script:
     """
-    minimap2 -t ${cpus} -x splice -c ${params.refGenome} ${fusions} > ${sampleId}_genome.paf
+    minimap2 -t ${task.cpus} -x splice -c ${refGenome} ${fusions} > ${sampleId}_genome.paf
     """
 }

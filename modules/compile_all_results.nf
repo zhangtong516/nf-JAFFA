@@ -5,7 +5,7 @@ process compile_all_results {
     container params.container?.get('r_base') ?: ''
 
     input:
-    tuple val(sampleId), path(summary) from summary_ch
+    tuple val(sampleId), path(summary) 
 
     output:
     path("jaffa_results.fasta") optional true

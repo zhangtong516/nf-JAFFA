@@ -6,7 +6,8 @@ process get_final_list {
     container params.container?.get('r_base') ?: ''
 
     input:
-    tuple val(sampleId), path(psl) from paf_genome_ch.combine(reads_table_ch)
+    tuple val(sampleId), path(psl), path(reads_table) 
+    path(refGeneTab)
 
     output:
     tuple val(sampleId), path("${sampleId}.summary") , emit: summary_ch
@@ -17,8 +18,8 @@ process get_final_list {
       touch ${sampleId}.summary
     else
       /usr/bin/R --vanilla --args ${psl} \
-        ${sampleId}.reads \
-        ${params.refGeneTab} \
+        ${reads_table} \
+        ${refGeneTab} \
         ${baseDir}/resources/known_fusions.txt \
         10000 \
         NoSupport,PotentialReadThrough \

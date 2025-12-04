@@ -4,8 +4,7 @@ process report_3_gene_fusions {
     
 
     input:
-    tuple val(sampleId), path(summary) from summary_ch
-    tuple val(_, path(txt)) from tx_txt_ch.filter{ it[0]==sampleId }
+    tuple val(sampleId), path(summary), path(txt)
 
     output:
     tuple val(sampleId), path("${sampleId}.3gene_summary"), emit: report_ch

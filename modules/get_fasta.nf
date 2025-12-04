@@ -10,13 +10,13 @@ process get_fasta {
     tuple val(sampleId), path(reads)
 
     output:
-    tuple val(sampleId), path("${sampleId}.reformated.fasta"), emit: fasta_ch
+    tuple val(sampleId), path("${sampleId}.reformated.fasta"), emit: fasta_out
 
     script:
     """
     reformat.sh ignorebadquality=t  \
         in=${reads} \
         out=${sampleId}.reformated.fasta \
-        threads=${cpus}
+        threads=${task.cpus}
     """
 }

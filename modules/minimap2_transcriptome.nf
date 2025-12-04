@@ -7,12 +7,13 @@ process minimap2_transcriptome {
 
     input:
     tuple val(sampleId), path(fasta)
+    path(transFasta)
 
     output:
     tuple val(sampleId), path("${sampleId}.paf"), emit: paf_tx_ch
 
     script:
     """
-    minimap2 -t ${task.cpus} -x map-ont -c ${params.transFasta} ${fasta} > ${sampleId}.paf
+    minimap2 -t ${task.cpus} -x map-ont -c ${transFasta} ${fasta} > ${sampleId}.paf
     """
 }

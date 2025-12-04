@@ -4,7 +4,7 @@ process make_fasta_reads_table {
     cpus 1
 
     input:
-    tuple val(sampleId), path(txt) from tx_txt_ch
+    tuple val(sampleId), path(txt)
 
     output:
     tuple val(sampleId), path("${sampleId}.reads"), emit: reads_table_ch

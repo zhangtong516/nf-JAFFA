@@ -79,6 +79,18 @@ nextflow run main.nf --container.get_fasta '/path/to/bbmap.sif' --container.mini
 - Recommended approach: build a container image (or Apptainer `.sif`) that contains all JAFFA tools and scripts at `/JAFFA`. Alternatively, point `params.container` to images for individual tools and ensure the required binaries are available in each container.
 - `nextflow.config` has placeholder images under `params.container`. Replace them with appropriate Biocontainers or your own images.
 
+**Apptainer cache directory**
+- If Nextflow/Apptainer fails with an error about opening images under an `apptainer_cache` path (for example: "no such file or directory"), the cache directory configured in `nextflow.config` may not exist or be writable.
+- You can set an explicit cache directory by exporting the `APPTAINER_CACHE` environment variable, for example:
+
+```bash
+export APPTAINER_CACHE=/path/to/writable/apptainer_cache
+mkdir -p $APPTAINER_CACHE
+chmod 700 $APPTAINER_CACHE
+```
+
+- The pipeline `nextflow.config` will fall back to `~/.apptainer/cache` if `APPTAINER_CACHE` is not set.
+
 **Parameters**
 - `params.reads` — glob for input FASTQ files (default: `"$PWD/*.fastq.gz"`).
 - `params.transFasta` — transcriptome FASTA path used by `minimap2_transcriptome`.

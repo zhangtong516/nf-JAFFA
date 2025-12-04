@@ -6,11 +6,11 @@ process extract_fusion_sequences {
     container params.container?.get('bbmap') ?: ''
 
     input:
-    tuple val(sampleId), path(txt)
-    tuple val(_, path(fasta)) from fasta_ch.filter{ it[0]==txt.baseName }
+    tuple val(sampleId), path(txt), path(fasta)
+    // tuple val(_, path(fasta)) from fasta_ch.filter { it[0] == txt.baseName }
 
     output:
-    tuple val(sampleId), path("${sampleId}.fusions.fa") , emit: fusions_fa_ch
+    tuple val(sampleId), path("${sampleId}.fusions.fa") into fusions_fa_ch
 
     script:
     """
