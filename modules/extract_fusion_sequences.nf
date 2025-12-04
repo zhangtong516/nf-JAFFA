@@ -10,11 +10,11 @@ process extract_fusion_sequences {
     tuple val(_, path(fasta)) from fasta_ch.filter{ it[0]==txt.baseName }
 
     output:
-    tuple val(sampleId), path("${sampleId}.fusions.fa") into fusions_fa_ch
+    tuple val(sampleId), path("${sampleId}.fusions.fa") , emit: fusions_fa_ch
 
     script:
     """
-    awk '{print $1}' ${txt} > ${sampleId}.fusions.fa.temp
+    awk '{print \$1}' ${txt} > ${sampleId}.fusions.fa.temp
     reformat.sh in=${fasta} out=stdout.fasta fastawrap=0 | \
       ${baseDir}/bin/extract_seq_from_fasta ${sampleId}.fusions.fa.temp > ${sampleId}.fusions.fa
     rm -f ${sampleId}.fusions.fa.temp

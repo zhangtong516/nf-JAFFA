@@ -7,11 +7,11 @@ process make_fasta_reads_table {
     tuple val(sampleId), path(txt) from tx_txt_ch
 
     output:
-    tuple val(sampleId), path("${sampleId}.reads") into reads_table_ch
+    tuple val(sampleId), path("${sampleId}.reads"), emit: reads_table_ch
 
     script:
     """
     echo -e "transcript\tbreak_min\tbreak_max\tfusion_genes\tspanning_pairs\tspanning_reads" > ${sampleId}.reads
-    awk '{ print $1" "$2"    "$3"    "$4"    "0"     "1}' ${txt} | sort -u >> ${sampleId}.reads
+    awk '{ print \$1" "\$2"    "\$3"    "\$4"    "0"     "1}' ${txt} | sort -u >> ${sampleId}.reads
     """
 }

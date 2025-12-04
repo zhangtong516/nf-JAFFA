@@ -9,7 +9,7 @@ process minimap2_transcriptome {
     tuple val(sampleId), path(fasta)
 
     output:
-    tuple val(sampleId), path("${sampleId}.paf") into paf_tx_ch
+    tuple val(sampleId), path("${sampleId}.paf"), emit: paf_tx_ch
 
     script:
     """

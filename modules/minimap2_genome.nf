@@ -9,7 +9,7 @@ process minimap2_genome {
     tuple val(sampleId), path(fusions)
 
     output:
-    tuple val(sampleId), path("${sampleId}_genome.paf") into paf_genome_ch
+    tuple val(sampleId), path("${sampleId}_genome.paf"), emit: paf_genome_ch
 
     script:
     """

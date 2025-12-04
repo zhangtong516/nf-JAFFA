@@ -8,7 +8,7 @@ process filter_transcripts {
     tuple val(sampleId), path(paf)
 
     output:
-    tuple val(sampleId), path("${sampleId}.txt") into tx_txt_ch
+    tuple val(sampleId), path("${sampleId}.txt"), emit: tx_txt_ch
 
     script:
     """

@@ -9,7 +9,7 @@ process get_final_list {
     tuple val(sampleId), path(psl) from paf_genome_ch.combine(reads_table_ch)
 
     output:
-    tuple val(sampleId), path("${sampleId}.summary") into summary_ch
+    tuple val(sampleId), path("${sampleId}.summary") , emit: summary_ch
 
     script:
     """

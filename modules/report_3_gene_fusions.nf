@@ -8,7 +8,7 @@ process report_3_gene_fusions {
     tuple val(_, path(txt)) from tx_txt_ch.filter{ it[0]==sampleId }
 
     output:
-    tuple val(sampleId), path("${sampleId}.3gene_summary") into report_ch
+    tuple val(sampleId), path("${sampleId}.3gene_summary"), emit: report_ch
 
     script:
     """
